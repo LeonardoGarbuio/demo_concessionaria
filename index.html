@@ -4,253 +4,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HYDRA RP | Cyber Luxury Experience</title>
+    <title>ÉLITE Motors | Concessionária de Veículos Premium</title>
+    <meta name="description" content="ÉLITE Motors — A concessionária que redefine o padrão de luxo automotivo. Descubra veículos exclusivos com atendimento personalizado.">
 
-    <!-- Fonts & Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <!-- Inline styles for scroll story to avoid breaking other pages -->
-    <style>
-        .story-container {
-            position: relative;
-            width: 100%;
-            height: 400vh;
-            /* 4 Sections */
-        }
-
-        .sticky-wrapper {
-            position: fixed;
-            /* Was sticky, but fixed is safer for 'behind' effect if we manage z-index */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 1;
-            /* Behind text */
-            pointer-events: none;
-            /* Let clicks pass through to text/buttons if needed */
-        }
-
-        /* But we need interactive buttons in the last section, so maybe pointer-events: none on wrapper, 
-           but auto on canvas? Actually, the canvas controls rotation, so it needs events.
-           Let's use sticky position relative to body, and z-index trickery.
-        */
-
-        .sticky-wrapper {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 5;
-        }
-
-        /* .hero-3d-car-container REMOVED to avoid conflict with style.css */
-
-        .scroll-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-            pointer-events: none;
-            /* Let events pass to car/canvas */
-        }
-
-        .story-section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* Centered by default */
-            padding: 40px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Make sections visible when active (handled by JS later, or just always visible and they scroll up) 
-           Actually, they scroll up naturally. The sticky background stays.
-        */
-        .story-section {
-            opacity: 1;
-        }
-
-        .story-section.hidden {
-            opacity: 0;
-        }
-
-        /* Section 1: Intro (Centered) */
-        .sec-intro {
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Section 2: Side View (Text Left) */
-        .sec-side {
-            align-items: flex-start;
-            padding-left: 10%;
-        }
-
-        /* Section 3: Rear View (Text Right) */
-        .sec-rear {
-            align-items: flex-end;
-            padding-right: 10%;
-            text-align: right;
-        }
-
-        /* Section 4: Store (Centered) */
-        .sec-store {
-            align-items: center;
-            justify-content: flex-end;
-            padding-bottom: 15vh;
-            background: linear-gradient(to top, #030303 50%, transparent);
-            /* Fade to black at bottom */
-            pointer-events: all;
-            /* Enable buttons */
-        }
-
-        .story-title {
-            font-family: var(--font-display);
-            font-size: 5rem;
-            line-height: 0.9;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            margin-bottom: 20px;
-        }
-
-        .story-desc {
-            font-size: 1.2rem;
-            color: #ccc;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-left: 2px solid var(--neon-blue);
-            max-width: 400px;
-        }
-
-        .scroll-down-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff;
-            animation: bounce 2s infinite;
-            font-size: 2rem;
-            pointer-events: all;
-            cursor: pointer;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateX(-50%) translateY(0);
-            }
-
-            40% {
-                transform: translateX(-50%) translateY(-20px);
-            }
-
-            60% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/landing.css">
 </head>
 
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loader-content">
-            <h2>HYDRA</h2>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">ÉLITE</div>
+            <div class="preloader-bar">
+                <div class="preloader-progress"></div>
+            </div>
+            <span class="preloader-text">Carregando experiência...</span>
         </div>
     </div>
 
-    <!-- Navigation Dock -->
-    <header class="header">
-        <nav class="nav-dock">
-            <a href="#" class="logo">HYDRA</a>
-            <a href="#home" class="nav-link active">Experience</a>
-            <a href="loja.html" class="nav-link">Loja</a>
-            <a href="vips.html" class="nav-link">VIPs</a>
-            <a href="sobre.html" class="nav-link">Sobre</a>
-            <div class="nav-divider"></div>
-            <button class="btn-icon" id="cart-btn"><i class="fas fa-shopping-bag"></i></button>
+    <!-- Navigation -->
+    <header class="nav-header" id="nav-header">
+        <nav class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-mark">É</span>
+                <span class="logo-text">ÉLITE</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="#home" class="nav-link active">Início</a>
+                <a href="#estoque" class="nav-link">Estoque</a>
+                <a href="#diferenciais" class="nav-link">Diferenciais</a>
+                <a href="#depoimentos" class="nav-link">Depoimentos</a>
+                <a href="#contato" class="nav-link">Contato</a>
+            </div>
+            <a href="#contato" class="nav-cta">
+                <span>Agendar Visita</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
-    <div class="story-container">
-        <!-- Sticky 3D Background -->
-        <div class="sticky-wrapper">
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-bg-elements">
+            <div class="hero-gradient-orb orb-1"></div>
+            <div class="hero-gradient-orb orb-2"></div>
+            <div class="hero-grid-lines"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge" data-animate="fade-up" data-delay="0.3">
+                <span class="badge-dot"></span>
+                Nova Coleção 2026
+            </div>
+            <h1 class="hero-title" data-animate="fade-up" data-delay="0.5">
+                <span class="title-line">Onde o Luxo</span>
+                <span class="title-line title-accent">Encontra a<br>Performance.</span>
+            </h1>
+            <p class="hero-subtitle" data-animate="fade-up" data-delay="0.7">
+                A concessionária que redefine o padrão de excelência automotiva.<br>
+                Veículos exclusivos. Atendimento sob medida. Experiência incomparável.
+            </p>
+            <div class="hero-actions" data-animate="fade-up" data-delay="0.9">
+                <a href="#estoque" class="btn-hero-primary">
+                    <span>Ver Estoque</span>
+                    <div class="btn-shine"></div>
+                </a>
+                <a href="#contato" class="btn-hero-secondary">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Agendar Test Drive</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 3D Car Container -->
+        <div class="hero-3d-wrapper">
             <div class="hero-3d-car-container" id="hero-3d-car">
                 <div class="car-loading">
                     <div class="loading-spinner"></div>
-                    <span>INITIALIZING ENGINE...</span>
+                    <span>Carregando modelo 3D...</span>
                 </div>
-            </div>
-            <!-- Persistent HUD (Can fade in/out via JS) -->
-            <div class="hud-item hud-left" id="hud-stats">
-                <span class="hud-label">PLAYERS ONLINE</span>
-                <span class="hud-value" data-count="1500">1,502</span>
             </div>
         </div>
 
-        <!-- Scrollable Narrative Sections -->
-        <div class="scroll-content">
-
-            <!-- SECTION 1: INTRO -->
-            <section class="story-section sec-intro" id="sec-1">
-                <div class="hero-title-bg">
-                    <span class="glitch" data-text="HYDRA">HYDRA</span>
-                </div>
-                <div class="scroll-down-hint"><i class="fas fa-chevron-down"></i></div>
-            </section>
-
-            <!-- SECTION 2: AERODYNAMICS (Side) -->
-            <section class="story-section sec-side" id="sec-2">
-                <h2 class="story-title" style="color: var(--neon-blue);">AERODYNAMICS</h2>
-                <div class="story-desc">
-                    Projetado para cortar o vento. Nossa infraestrutura possui latência zero e proteção DDoS de nível
-                    militar. Velocidade não é opção, é padrão.
-                </div>
-            </section>
-
-            <!-- SECTION 3: POWER (Rear/Engine) -->
-            <section class="story-section sec-rear" id="sec-3">
-                <h2 class="story-title" style="color: var(--neon-purple);">POWER V12</h2>
-                <div class="story-desc" style="border-left: none; border-right: 2px solid var(--neon-purple);">
-                    Economia balanceada e sistemas exclusivos. Sinta a potência de um servidor otimizado para a melhor
-                    performance.
-                </div>
-            </section>
-
-            <!-- SECTION 4: STORE CTA -->
-            <section class="story-section sec-store" id="sec-4">
-                <h2 class="story-title">START DRIVING</h2>
-                <div class="hero-cta">
-                    <a href="loja.html" class="btn-primary">Acessar Loja</a>
-                    <a href="#" class="btn-secondary"><i class="fab fa-discord"></i><span>DISCORD</span></a>
-                </div>
-            </section>
+        <!-- Floating Stats -->
+        <div class="hero-floating-stats" data-animate="fade-up" data-delay="1.1">
+            <div class="float-stat">
+                <span class="float-stat-number" data-count="850">0</span>
+                <span class="float-stat-label">Veículos Vendidos</span>
+            </div>
+            <div class="float-stat-divider"></div>
+            <div class="float-stat">
+                <span class="float-stat-number" data-count="12">0</span>
+                <span class="float-stat-label">Anos de Mercado</span>
+            </div>
+            <div class="float-stat-divider"></div>
+            <div class="float-stat">
+                <span class="float-stat-number" data-count="98">0</span>
+                <span class="float-stat-label percent">% Satisfação</span>
+            </div>
         </div>
-    </div>
+
+        <div class="hero-scroll-indicator" data-animate="fade-up" data-delay="1.3">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Deslize para explorar</span>
+        </div>
+    </section>
+
+    <!-- ===== SPEED CTA SECTION ===== -->
+    <section class="speed-section" id="speed-cta">
+        <div class="speed-bg-text" aria-hidden="true">
+            <div class="speed-text-top">QUER UM SITE ASSIM?</div>
+            <div class="speed-text-bottom">CHAMA NO DIRECT</div>
+        </div>
+
+        <div class="speed-3d-track" id="speed-3d-track">
+            <canvas id="speed-car-canvas"></canvas>
+        </div>
+
+        <div class="speed-lines" aria-hidden="true">
+            <div class="h-line h-1"></div>
+            <div class="h-line h-2"></div>
+            <div class="h-line h-3"></div>
+        </div>
+    </section>
+
+    <!-- ===== ESTOQUE / SHOWCASE ===== -->
+    <section class="section-showcase" id="estoque">
+        <div class="section-container">
+            <!-- 3D VAULT SHOWCASE -->
+            <div class="vault-container" id="vault-section">
+                <!-- Vault Doors -->
+                <div class="vault-door vault-door-left">
+                    <div class="vault-door-inner"></div>
+                </div>
+                <div class="vault-door vault-door-right">
+                    <div class="vault-door-inner"></div>
+                </div>
+
+                <!-- 3D Canvas -->
+                <canvas id="vault-canvas" class="vault-canvas"></canvas>
+
+                <!-- Vault Controls and Info Overlay -->
+                <div class="vault-content">
+                    <button id="vault-prev" class="vault-btn"><i class="fas fa-chevron-left"></i></button>
+                    
+                    <div class="vault-car-info" id="vault-car-info">
+                        <div class="vault-brand" id="vault-brand">LAMBORGHINI</div>
+                        <h3 class="vault-name" id="vault-name">AVENTADOR SVJ</h3>
+                        <div class="vault-specs">
+                            <span id="vault-power"><i class="fas fa-tachometer-alt"></i> 770 cv</span>
+                            <span id="vault-engine"><i class="fas fa-gas-pump"></i> V12</span>
+                        </div>
+                        <div class="vault-price">A partir de <strong id="vault-price-val">R$ 4.890.000</strong></div>
+                        <a href="#contato" class="btn-card-cta vault-cta">Consultar Modelo</a>
+                    </div>
+                    
+                    <button id="vault-next" class="vault-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <!-- Loading indicator -->
+                <div class="vault-loading" id="vault-loading">
+                    <div class="spinner"></div>
+                    <span>CARREGANDO MODELO...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DIFERENCIAIS ===== -->
+    <section class="section-features" id="diferenciais">
+        <div class="section-container">
+            <div class="features-editorial-header" data-animate="fade-up">
+                <h2 class="editorial-title">Padrão de<br><em>Excelência</em></h2>
+                <p class="editorial-subtitle">Não vendemos apenas veículos. Entregamos a experiência definitiva em performance, luxo e exclusividade absoluta.</p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-row" data-animate="fade-up" data-delay="0.1">
+                    <div class="feature-num">01</div>
+                    <div class="feature-main">
+                        <h3>Garantia Premium</h3>
+                        <p>Até 3 anos de cobertura nacional com assistência 24h e suporte especializado onde quer que você esteja.</p>
+                    </div>
+                    <div class="feature-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="feature-row" data-animate="fade-up" data-delay="0.2">
+                    <div class="feature-num">02</div>
+                    <div class="feature-main">
+                        <h3>Atendimento Exclusivo</h3>
+                        <p>Consultor dedicado do primeiro contato à entrega. Sigilo absoluto e negociação minuciosamente personalizada.</p>
+                    </div>
+                    <div class="feature-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="feature-row" data-animate="fade-up" data-delay="0.3">
+                    <div class="feature-num">03</div>
+                    <div class="feature-main">
+                        <h3>Procedência Absoluta</h3>
+                        <p>Laudo cautelar rigoroso, histórico impecável de manutenções e documentação 100% verificada e garantida.</p>
+                    </div>
+                    <div class="feature-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="feature-row" data-animate="fade-up" data-delay="0.4">
+                    <div class="feature-num">04</div>
+                    <div class="feature-main">
+                        <h3>Logística Nacional</h3>
+                        <p>Transporte fechado e especializado com seguro integral. Receba sua máquina na porta de casa, intocada.</p>
+                    </div>
+                    <div class="feature-arrow"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DEPOIMENTOS (CREATIVE VERTICAL ACCORDION) ===== -->
+    <section class="section-testimonials-creative" id="depoimentos">
+        <div class="vertical-accordion">
+            <div class="va-item">
+                <div class="va-title-wrap">
+                    <h2>Porsche 911 GT3</h2>
+                </div>
+                <div class="va-content">
+                    <div class="va-quote">"A máquina perfeita entregue em tempo recorde. A experiência é de outro mundo."</div>
+                    <div class="va-author">— Ricardo Mendes</div>
+                </div>
+            </div>
+            
+            <div class="va-item">
+                <div class="va-title-wrap">
+                    <h2>Mercedes-AMG GT</h2>
+                </div>
+                <div class="va-content">
+                    <div class="va-quote">"Não foi uma compra, foi uma curadoria de luxo. Confiança total na ÉLITE."</div>
+                    <div class="va-author">— Ana Carolina Silva</div>
+                </div>
+            </div>
+            
+            <div class="va-item">
+                <div class="va-title-wrap">
+                    <h2>BMW M5 Comp.</h2>
+                </div>
+                <div class="va-content">
+                    <div class="va-quote">"Sigilo, transparência e uma entrega impecável. O padrão definitivo de luxo."</div>
+                    <div class="va-author">— Felipe Lopes</div>
+                </div>
+            </div>
+
+            <div class="va-item">
+                <div class="va-title-wrap">
+                    <h2>Audi RS e-tron GT</h2>
+                </div>
+                <div class="va-content">
+                    <div class="va-quote">"O futuro da performance aliado a um atendimento focado exclusivamente em mim."</div>
+                    <div class="va-author">— Carlos Eduardo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA / CONTATO ===== -->
+    <section class="section-cta" id="contato">
+        <div class="cta-bg-elements">
+            <div class="cta-glow"></div>
+        </div>
+        <div class="section-container">
+            <div class="cta-content" data-animate="fade-up">
+                <span class="section-tag">Pronto para dirigir?</span>
+                <h2 class="cta-title">Agende seu <em>Test Drive</em> Exclusivo</h2>
+                <p class="cta-desc">Entre em contato com nossos consultores e viva a experiência ÉLITE Motors. Atendimento personalizado, sem compromisso.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/5511999999999" class="btn-cta-whatsapp" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Falar pelo WhatsApp</span>
+                    </a>
+                    <a href="tel:+5511999999999" class="btn-cta-phone">
+                        <i class="fas fa-phone"></i>
+                        <span>(11) 99999-9999</span>
+                    </a>
+                </div>
+                <div class="cta-info">
+                    <div class="cta-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Av. Europa, 1500 — São Paulo, SP</span>
+                    </div>
+                    <div class="cta-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Seg-Sex: 9h–19h | Sáb: 9h–14h</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="footer-logo">ÉLITE</span>
+                    <p>Redefinindo o padrão de luxo automotivo desde 2014.</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 ÉLITE Motors. Todos os direitos reservados.</span>
+                <span class="footer-demo-badge">
+                    <i class="fas fa-code"></i> Projeto Demo — Desenvolvido para demonstração
+                </span>
+            </div>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <script src="js/products.js"></script>
 
     <!-- Import Map for Three.js -->
     <script type="importmap">
@@ -261,18 +350,7 @@
         }
     </script>
 
-    <script type="module" src="js/3d-effects.js"></script>
-
-    <script>
-        // Simple loading screen script
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loading-screen');
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }, 1000);
-        });
-    </script>
+    <script src="js/landing.js"></script>
 </body>
 
 </html>

@@ -244,15 +244,18 @@ body::after {
     gap: 4px;
 }
 
+/* HUD Positioning */
 .hud-left {
-    top: 45%;
-    left: 10%;
+    top: 70%;
+    /* Moved down from 45% */
+    left: 8%;
     transform: translateY(-50%);
 }
 
 .hud-right {
-    top: 45%;
-    right: 10%;
+    top: 70%;
+    /* Moved down from 45% */
+    right: 8%;
     transform: translateY(-50%);
 }
 
@@ -346,30 +349,129 @@ body::after {
 
 @media (max-width: 768px) {
 
-    /* --- NAVIGATION --- */
+    /* --- NAVIGATION (SAFE RECOVERY) --- */
     .header {
-        top: auto;
-        bottom: 20px;
-        /* Force header container to bottom */
+        position: fixed !important;
+        top: auto !important;
+        bottom: 30px !important;
+        /* Lifted up significantly */
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        z-index: 2147483647 !important;
+        background: transparent !important;
+        /* No more red */
+        pointer-events: none;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-end !important;
+        padding-bottom: 0 !important;
+        /* Reset padding leverage */
     }
 
+    /* --- MOBILE APP DOCK (ICONS ONLY) --- */
     .nav-dock {
-        width: 90%;
-        padding: 12px;
-        justify-content: space-evenly;
-        background: rgba(10, 10, 10, 0.95);
-        backdrop-filter: blur(20px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        background: rgba(15, 15, 15, 0.95) !important;
+        backdrop-filter: blur(15px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        padding: 12px 25px !important;
+        border-radius: 100px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 0, 0, 1) !important;
+        width: auto !important;
+        max-width: 90% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        gap: 20px !important;
+        align-items: center !important;
+        pointer-events: auto !important;
+        margin-bottom: 0px !important;
     }
 
     .nav-link {
-        font-size: 0.75rem;
-        padding: 8px 12px;
+        font-size: 0 !important;
+        /* STRICTLY HIDE TEXT */
+        width: 40px !important;
+        height: 40px !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        opacity: 0.6;
+        transition: 0.3s;
+        padding: 0 !important;
+        /* Remove any padding */
+    }
+
+    .nav-link.active,
+    .nav-link:active {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    /* Icons Injection */
+    .nav-link[href="index.html"]::before,
+    .nav-link[href="#"]::before,
+    .nav-link[href="#home"]::before {
+        /* Added #home */
+        content: '\f015';
+        /* fa-home */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        font-size: 1.3rem;
+        color: #fff;
+    }
+
+    .nav-link[href="loja.html"]::before {
+        content: '\f54e';
+        /* fa-store */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    .nav-link[href="vips.html"]::before {
+        content: '\f3a5';
+        /* fa-gem */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    .nav-link[href="sobre.html"]::before {
+        content: '\f129';
+        /* fa-info */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    /* Cart Button Integration */
+    .btn-icon {
+        background: rgba(124, 58, 237, 0.2) !important;
+        /* Purple Tint */
+        border: 1px solid rgba(124, 58, 237, 0.4) !important;
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #fff !important;
+        margin-left: 5px !important;
+        box-shadow: 0 0 10px rgba(124, 58, 237, 0.3) !important;
+    }
+
+    .btn-icon i {
+        font-size: 0.9rem !important;
     }
 
     .logo,
     .nav-divider {
-        display: none;
+        display: none !important;
     }
 
     /* --- HERO & 3D --- */
@@ -387,18 +489,13 @@ body::after {
 
     .hero-3d-car-container {
         width: 100%;
-        height: 60vh;
-        /* Increase height slightly to allow camera to see more */
-        position: fixed;
-        /* Fix car position on mobile so it stays as background */
-        bottom: 0;
+        height: 100vh;
+        position: fixed !important;
+        top: 0;
         left: 0;
-        top: auto;
-        transform: none;
-        z-index: 1 !important;
-        /* Send behind text */
-        pointer-events: none;
-        /* Let scroll pass through */
+        z-index: 0 !important;
+        /* Bring up from -1 to 0 (Visible) */
+        pointer-events: none !important;
     }
 
     /* Content Sections that scroll over */
@@ -464,27 +561,54 @@ body::after {
     }
 
     .hero-title-bg {
-        font-size: 15vw;
-        /* Restore size but keep top */
-        top: 15%;
+        font-size: 10vw !important;
+        /* Smaller title */
+        top: 10% !important;
     }
 
     .story-desc {
         font-size: 0.9rem;
         padding: 15px;
         max-width: 90%;
-        /* Ensure it fits */
+        border-left: none !important;
+        /* Remove side border on mobile */
+        border-bottom: 2px solid var(--neon-blue);
+        /* Move to bottom */
+        margin-top: 10px;
     }
 
     /* --- SECTION LAYOUTS --- */
+    /* --- SECTION LAYOUTS (COMPACT MOBILE) --- */
     .story-section {
-        padding: 20px;
-        /* Reduce padding */
+        height: auto !important;
+        min-height: auto !important;
+        padding: 120px 20px !important;
+        /* MAX SPACING MODE */
+        display: flex !important;
+        flex-direction: column;
         justify-content: center;
-        /* Center everything */
-        text-align: center !important;
-        /* Force center align for mobile */
-        align-items: center !important;
+        align-items: center;
+        margin-bottom: 60px !important;
+        /* Huge gap */
+    }
+
+    /* Target the excessive intro space */
+    .story-section.sec-intro {
+        min-height: 55vh !important;
+        /* LARGE CAR WINDOW */
+        height: auto !important;
+        padding-top: 10vh !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 40px !important;
+    }
+
+    /* Reset Aerodynamics Position */
+    .story-section.sec-side {
+        margin-top: 0 !important;
+        /* No overlap */
+        padding-top: 20px !important;
+        position: relative;
+        z-index: 20;
     }
 
     .sec-side,
@@ -493,26 +617,61 @@ body::after {
         padding-right: 20px;
     }
 
-    /* --- CTA FIX --- */
+    /* --- CTA FIX (FLEXBOX CENTER) --- */
+    .sec-store {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 20px !important;
+        padding-bottom: 80px !important;
+        /* Reduced from 120px */
+        margin-bottom: 0 !important;
+        /* No extra margin after this */
+        height: auto !important;
+        min-height: auto !important;
+    }
+
     .hero-cta {
-        bottom: 15%;
-        /* Move up */
+        position: relative !important;
+        /* Static flow */
         width: 100%;
-        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center !important;
+        /* Center Items */
+        justify-content: center !important;
+        margin: 0 auto;
+        left: auto;
+        bottom: auto;
+        transform: none;
     }
 
     .btn-primary {
-        padding: 14px 30px;
-        font-size: 0.9rem;
-        width: 100%;
-        /* Full width button looks better on mobile */
+        margin: 0 auto !important;
+        /* Center Block */
+        display: block;
+        width: 80% !important;
         text-align: center;
-        max-width: 300px;
-        /* Cap width */
+        justify-content: center;
     }
 
     .hud-item {
-        display: none;
+        display: flex !important;
+        /* Show on mobile */
+        transform: scale(0.8);
+        /* Smaller on mobile */
+        top: 75% !important;
+        /* Even lower on mobile */
+        padding: 8px 12px;
+    }
+
+    .hud-left {
+        left: 5% !important;
+    }
+
+    .hud-right {
+        right: 5% !important;
     }
 
     .cart-sidebar {
